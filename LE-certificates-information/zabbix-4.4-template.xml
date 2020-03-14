@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-03-06T02:44:32Z</date>
+    <groups>
+        <group>
+            <name>Templates/Custom</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template LE certificates information</template>
+            <name>Template LE certificates information</name>
+            <groups>
+                <group>
+                    <name>Templates/Custom</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>LE certificates - information</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>JSON с информацией о всех сертификатах</name>
+                    <key>le.certificates.information</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>LE certificates - information</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>LE certificates discovery</name>
+                    <key>le.certificates.discovery</key>
+                    <delay>5m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#CERTIFICATE} - [Период действия - начало]</name>
+                            <type>DEPENDENT</type>
+                            <key>le.certificates.information.after.date[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>LE certificates - information</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].AFTER_DATE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>le.certificates.information</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#CERTIFICATE} - [Период действия - окончание - unixtime]</name>
+                            <type>DEPENDENT</type>
+                            <key>le.certificates.information.before.date.unixtime.[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <applications>
+                                <application>
+                                    <name>LE certificates - information</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>LE certificates - other values</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].BEFORE_DATE_EPOCH</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>le.certificates.information</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#CERTIFICATE} - [Период действия - окончание]</name>
+                            <type>DEPENDENT</type>
+                            <key>le.certificates.information.before.date.[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>LE certificates - information</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].BEFORE_DATE</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>le.certificates.information</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#CERTIFICATE} - [Common Name]</name>
+                            <type>DEPENDENT</type>
+                            <key>le.certificates.information.cn.[{#CERTIFICATE}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>LE certificates - information</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.['{#CERTIFICATE}'].SUBJECT</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>le.certificates.information</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#CERTIFICATE} - [Период действия - дней осталось]</name>
+                            <type>CALCULATED</type>
+                            <key>le.certificates.information.days.left.[{#CERTIFICATE}]</key>
+                            <delay>5m</delay>
+                            <units>s</units>
+                            <params>last(&quot;le.certificates.information.before.date.unixtime.[{#CERTIFICATE}]&quot;)-last(system.localtime)</params>
+                            <applications>
+                                <application>
+                                    <name>LE certificates - information</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;={$SEVERITY_AVERAGE_DAYS_LEFT}</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;={$SEVERITY_DISASTER_DAYS_LEFT}</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>DISASTER</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;={$SEVERITY_HIGH_DAYS_LEFT}</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;={$SEVERITY_INFORMATION_DAYS_LEFT}</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <status>DISABLED</status>
+                                    <priority>INFO</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;={$SEVERITY_WARNING_DAYS_LEFT}</expression>
+                                    <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CERTIFICATE}</lld_macro>
+                            <path>$.['{#CERTIFICATE}']</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$SEVERITY_AVERAGE_DAYS_LEFT}</macro>
+                    <value>20d</value>
+                </macro>
+                <macro>
+                    <macro>{$SEVERITY_DISASTER_DAYS_LEFT}</macro>
+                    <value>30d</value>
+                </macro>
+                <macro>
+                    <macro>{$SEVERITY_HIGH_DAYS_LEFT}</macro>
+                    <value>10d</value>
+                </macro>
+                <macro>
+                    <macro>{$SEVERITY_INFORMATION_DAYS_LEFT}</macro>
+                    <value>90d</value>
+                </macro>
+                <macro>
+                    <macro>{$SEVERITY_WARNING_DAYS_LEFT}</macro>
+                    <value>28d</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>

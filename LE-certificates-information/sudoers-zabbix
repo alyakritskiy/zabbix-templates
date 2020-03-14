@@ -1,0 +1,2 @@
+zabbix ALL=(ALL) NOPASSWD: /etc/zabbix/scripts/le-certificates.sh discovery
+zabbix ALL=(ALL) NOPASSWD: /etc/zabbix/scripts/le-certificates.sh information
