@@ -10,7 +10,7 @@
 > `mkdir -p /etc/zabbix/scripts`
 
  2. Скопируйте конфиг  `userparameter_le_certificates.conf`в `/etc/zabbix/zabbix_agentd.d`
- 3. Создайте файл `/etc/sudoers.d/zabbix_le_certificates`> Пример содержания в файле `sudoers-zabbix`
+ 3. Создайте файл `/etc/sudoers.d/zabbix_le_certificates` --> Пример содержания в файле `sudoers-zabbix`
 
 > Для centos/rhel пример в файле `sudoers-zabbix-centos` , отличие в отключении логов sudo для zabbix
  4. Задайте владельца и группу у созданных файлов и каталогов
