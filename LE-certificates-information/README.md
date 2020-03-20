@@ -14,12 +14,12 @@
 
 > Для centos/rhel пример в файле `sudoers-zabbix-centos` , отличие в отключении логов sudo для zabbix
  4. Задайте владельца и группу у созданных файлов и каталогов
-> `chown root:zabbix /etc/zabbix/scripts/le-certificates.sh \
-&& chown root:zabbix /etc/zabbix/zabbix_agentd.d/userparameter_le_certificates.conf \
+> `chown root:zabbix /etc/zabbix/scripts/le-certificates.sh
+&& chown root:zabbix /etc/zabbix/zabbix_agentd.d/userparameter_le_certificates.conf
 && chown root:root /etc/sudoers.d/zabbix_le_certificates`
  5. Задайте права Unix
-> `chmod 750 /etc/zabbix/scripts/le-certificates.sh \
-&& chmod 640 /etc/zabbix/zabbix_agentd.d/userparameter_le_certificates.conf \
+> `chmod 750 /etc/zabbix/scripts/le-certificates.sh
+&& chmod 640 /etc/zabbix/zabbix_agentd.d/userparameter_le_certificates.conf
 && chmod 600 /etc/sudoers.d/zabbix_le_certificates`
  6. Импортируйте шаблон Zabbix `zabbix-4.4-template.xml`
 > Данный шаблон совместим с версией Zabbix 4.4 и выше
