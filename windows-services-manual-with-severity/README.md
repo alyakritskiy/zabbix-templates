@@ -17,7 +17,7 @@
 
 **Установка:**
 
- 1. Скопируйте скрипт `userparameter_alias_windows_services.conf` в `/etc/zabbix/zabbix_agentd.d`
+ 1. Скопируйте скрипт `userparameter_alias_windows_services.conf` в `\path\to\zabbix\agent\zabbix_agentd.d`
 
 > Файл содержит алиасы на service.discovery и service.info для работы нескольких автообнаружений.
 
