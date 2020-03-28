@@ -2,7 +2,7 @@
 [![N|zabbix logo](https://avatars1.githubusercontent.com/u/4561226?s=200&v=4)](https://www.zabbix.com/)
 # Шаблон для мониторинга сертификатов Let's Encrypt созданных с помощью Certbot
 
-> **Установка:**
+**Установка:**
 
  1. Скопируйте скрипт `le-certificates.sh` в `/etc/zabbix/scripts`
 

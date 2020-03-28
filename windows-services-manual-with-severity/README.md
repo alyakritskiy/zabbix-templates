@@ -2,16 +2,20 @@
 # Шаблон для мониторинга сервисов OS Windows с ручным фильтром и разными уровнями важности триггеров
 
 > Принцип работы - на хосте нужно создать макросы с фильтром содержащим регульярное выражение которое отфильтрует нужные службы из общего списка  
+>  
 > Переменные(отличие в важности триггеров создаваемых автообнаружением):  
+>  
 > `{$SERVICE.NAME.MATCHES.INFORMATION}`  
 > `{$SERVICE.NAME.MATCHES.WARNING}`  
 > `{$SERVICE.NAME.MATCHES.AVERAGE}`  
 > `{$SERVICE.NAME.MATCHES.HIGH}`  
 > `{$SERVICE.NAME.MATCHES.DISASTER}`  
+>  
 > Пример регулярного выражения:  
 > `^(service1|Service2)$` - сработает на `service1` и `Service2`  
 
-> **Установка:**
+
+**Установка:**
 
  1. Скопируйте скрипт `userparameter_alias_windows_services.conf` в `/etc/zabbix/zabbix_agentd.d`
 
