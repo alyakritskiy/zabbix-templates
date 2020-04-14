@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-03-20T04:22:41Z</date>
+    <date>2020-04-14T06:24:59Z</date>
     <groups>
         <group>
             <name>Templates/Custom</name>
@@ -204,6 +204,20 @@
                                     <expression>{last()}&lt;={$SEVERITY_WARNING_DAYS_LEFT}</expression>
                                     <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
                                     <priority>WARNING</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                            <expression>{Template LE certificates information:le.certificates.information.days.left.[{#CERTIFICATE}].last()}&lt;={$SEVERITY_AVERAGE_DAYS_LEFT}</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                            <expression>{Template LE certificates information:le.certificates.information.days.left.[{#CERTIFICATE}].last()}&lt;={$SEVERITY_DISASTER_DAYS_LEFT}</expression>
+                                        </dependency>
+                                        <dependency>
+                                            <name>LE сертификат {#CERTIFICATE} - осталось менее {ITEM.LASTVALUE} дней</name>
+                                            <expression>{Template LE certificates information:le.certificates.information.days.left.[{#CERTIFICATE}].last()}&lt;={$SEVERITY_HIGH_DAYS_LEFT}</expression>
+                                        </dependency>
+                                    </dependencies>
                                 </trigger_prototype>
                             </trigger_prototypes>
                         </item_prototype>
